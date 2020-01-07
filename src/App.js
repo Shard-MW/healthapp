@@ -1,23 +1,38 @@
 import React, { Component } from "react";
 import { MDBBtn, MDBCol, MDBContainer, MDBRow } from "mdbreact";
-import "./index.css";
-import logo from "./logo.png";
+import "./css/index.css";
+import ContentView from "./components/ContentView";
 
 class App extends Component {
-  render() {
-    return (
-      <MDBContainer>
-        <MDBRow center style={{ height: "100vh" }}>
-          <MDBCol middle="true" sm="8" className="text-center">
-            <img src={logo} alt="logo" style={{ width: "10rem" }} />
-            <h1>Welcome to Your MDB React App</h1>
-            <p className="mb-2">The application is configured and ready to import our components.</p>
-            <MDBBtn href="https://mdbootstrap.com/docs/react/" target="blank" color="light-blue"><strong>Check out our docs!</strong></MDBBtn>
-          </MDBCol>
-        </MDBRow>
-      </MDBContainer>
-    );
-  }
+    render() {
+        return (
+            <MDBContainer fluid style={styles.container}>
+                <MDBRow>
+                    <MDBCol style={styles.leftMenu} md="2">Menu</MDBCol>
+                    <MDBCol style={styles.content} md="10">
+                        <ContentView />
+                    </MDBCol>
+                </MDBRow>
+            </MDBContainer>
+        );
+    }
 }
+
+const styles = {
+    container : {
+        //backgroundColor: '#bebebe',
+    },
+    leftMenu : {
+        border: '1px solid black',
+        paddingTop : '4%',
+        textAlign: 'center',
+    },
+    content : {
+        border: '1px solid yellow',
+        padding: '4%',
+        height: '100vh',
+        overflow: 'auto',
+    },
+};
 
 export default App;
