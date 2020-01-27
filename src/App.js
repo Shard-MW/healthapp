@@ -24,12 +24,12 @@ const styles = {
     },
     leftMenu : {
         border: '1px solid black',
-        paddingTop : '4%',
+        paddingTop : '2%',
         textAlign: 'center',
     },
     content : {
         border: '1px solid yellow',
-        padding: '4%',
+        padding: '2% 4%',
         height: '100vh',
         overflow: 'auto',
     },
