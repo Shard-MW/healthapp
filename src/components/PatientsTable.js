@@ -165,6 +165,11 @@ class PatientsTable extends React.Component {
                 small
                 noBottomColumns
                 data={this.state.data}
+                searchLabel="Recherche dans la liste :"
+                paginationLabel={["Précédent", "Suivant"]}
+                noRecordsFoundLabel="Aucun résultat trouvé"
+                infoLabel={["Affiche", "à", "des", "résultats"]}
+                entriesLabel="Montrer par page :"
             />
         )
     };
