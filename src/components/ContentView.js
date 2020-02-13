@@ -39,7 +39,7 @@ export default class ContentView extends Component {
                         )
                     }
                 </MDBContainer>
-                <h2 style={styles.title}>Liste des patients :</h2>
+                <h4 style={styles.title}>Liste des patients</h4>
                 <PatientsTable addNotification={this.addNotification}/>
             </>
         )
@@ -48,7 +48,7 @@ export default class ContentView extends Component {
 
 const styles = {
     title : {
-        marginBottom: '2%',
+        marginBottom: '4vh',
         fontWeight: 'bolder',
     },
     notifContainer: {

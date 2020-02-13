@@ -47,6 +47,22 @@ class PatientsTable extends React.Component {
         this.deletePatient = this.deletePatient.bind(this);
     }
 
+    formalizeGender(gender) {
+        switch (gender) {
+            case "male":
+                return "Homme";
+                break;
+
+            case "female":
+                return "Femme";
+                break;
+        
+            default:
+                return gender;
+                break;
+        }
+    }
+
     async deletePatient(e, id, addNotification) {
         e.preventDefault();
 
@@ -131,14 +147,14 @@ class PatientsTable extends React.Component {
                                     ? (row.resource.name[0].given[0]).toLowerCase().charAt(0).toUpperCase() + (row.resource.name[0].given[0]).toLowerCase().substring(1)
                                     : "",
                             birth : row.resource.birthDate,
-                            gender: row.resource.gender,
+                            gender: this.formalizeGender(row.resource.gender),
                             button:
                                 <MDBBtnGroup style={{width: '100%'}}>
-                                    <MDBBtn style={{marginTop: 0, marginBottom: 0}} color="primary" onClick={(e) => console.log("Modify clicked for " + row.resource.id)}>
-                                        <MDBIcon icon="user-edit"/>
+                                    <MDBBtn style={{marginTop: 0, marginBottom: 0, marginLeft: 0}} color="primary" onClick={(e) => console.log("Modify clicked for " + row.resource.id)}>
+                                        <MDBIcon style={styles.icon} icon="user-edit"/>
                                     </MDBBtn>
-                                    <MDBBtn style={{marginTop: 0, marginBottom: 0}} color="danger" onClick={(e) => this.deletePatient(e, row.resource.id, this.props.addNotification)}>
-                                        <MDBIcon icon="trash-alt"/>
+                                    <MDBBtn style={{marginTop: 0, marginBottom: 0, marginRight: 0}} color="danger" onClick={(e) => this.deletePatient(e, row.resource.id, this.props.addNotification)}>
+                                        <MDBIcon style={styles.icon} icon="trash-alt"/>
                                     </MDBBtn>
                                 </MDBBtnGroup>
                         });
@@ -163,7 +179,7 @@ class PatientsTable extends React.Component {
                 bordered
                 hover
                 small
-                noBottomColumns
+                //noBottomColumns
                 data={this.state.data}
                 searchLabel="Recherche dans la liste :"
                 paginationLabel={["Précédent", "Suivant"]}
@@ -175,3 +191,10 @@ class PatientsTable extends React.Component {
     };
 }
 export default PatientsTable;
+
+
+const styles = {
+    icon: {
+        marginLeft: '-.3rem',
+    }
+}
