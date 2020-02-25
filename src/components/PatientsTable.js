@@ -1,6 +1,7 @@
 import React from 'react';
 import {MDBDataTable, MDBBtn, MDBIcon, MDBBtnGroup} from 'mdbreact';
 import axios from "axios";
+import * as stringOp from "../operations/stringOperations"
 
 const columns = [
     {
@@ -61,7 +62,7 @@ class PatientsTable extends React.Component {
                 return gender;
                 break;
         }
-    }
+    }   
 
     async deletePatient(e, id, addNotification) {
         e.preventDefault();
@@ -144,7 +145,7 @@ class PatientsTable extends React.Component {
                                  ? (row.resource.name[0].family).toUpperCase()
                                  : "",
                             prenom: row.resource.name
-                                    ? (row.resource.name[0].given[0]).toLowerCase().charAt(0).toUpperCase() + (row.resource.name[0].given[0]).toLowerCase().substring(1)
+                                    ? stringOp.capitalize(row.resource.name[0].given[0])
                                     : "",
                             birth : row.resource.birthDate,
                             gender: this.formalizeGender(row.resource.gender),
