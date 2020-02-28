@@ -9,24 +9,30 @@ class SearchMenu extends Component {
     
         this.handleFieldChange = this.handleFieldChange.bind(this);
         this.handleOptionChanges = this.handleOptionChanges.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
       
     handleFieldChange(fieldId, value) {
         this.setState({ [fieldId]: value });
         
-        console.log(this.state)
+        //console.log(this.state)
     }
 
     handleOptionChanges(fieldId, optName, value) {        
         if (this.state[fieldId]){
             let newArr = this.state[fieldId];
             newArr[optName] = value;
+            
             this.setState({
                 [fieldId]: newArr,
             });
         }
             
-        console.log(this.state)
+        //console.log(this.state)
+    }
+
+    handleSubmit(){
+        console.log(this.state);
     }
 
     render() {
@@ -65,7 +71,7 @@ class SearchMenu extends Component {
                         </div>
                         <input className="form-control form-control-sm" type="text" placeholder="Nom" name="inputLastname"
                             onChange={(e) => (
-                                this.handleOptionChanges('family', 'name', e.target.value)
+                                this.handleOptionChanges('family', 'value', e.target.value)
                             )}
                         />
                     </div>
@@ -75,21 +81,37 @@ class SearchMenu extends Component {
                     <div>
                         <div className="d-flex justify-content-center" style={{marginBottom: '0.3rem'}}>
                             <div className="custom-control custom-radio custom-control-inline">
-                                <input type="radio" className="custom-control-input" id="surnameRadioOpt1" name="surnameMatchMethod" defaultChecked/>
+                                <input type="radio" className="custom-control-input" id="surnameRadioOpt1" name="surnameMatchMethod" 
+                                    onChange={() => (
+                                        this.handleOptionChanges('given', 'match', '')
+                                    )}
+                                defaultChecked />
                                 <label className="custom-control-label" htmlFor="surnameRadioOpt1">Défaut</label>
                             </div>
 
                             <div className="custom-control custom-radio custom-control-inline">
-                                <input type="radio" className="custom-control-input" id="surnameRadioOpt2" name="surnameMatchMethod" />
+                                <input type="radio" className="custom-control-input" id="surnameRadioOpt2" name="surnameMatchMethod" 
+                                    onChange={() => (
+                                        this.handleOptionChanges('given', 'match', 'contains')
+                                    )}
+                                />
                                 <label className="custom-control-label" htmlFor="surnameRadioOpt2">Contient</label>
                             </div>
 
                             <div className="custom-control custom-radio custom-control-inline">
-                                <input type="radio" className="custom-control-input" id="surnameRadioOpt3" name="surnameMatchMethod" />
+                                <input type="radio" className="custom-control-input" id="surnameRadioOpt3" name="surnameMatchMethod" 
+                                    onChange={() => (
+                                        this.handleOptionChanges('given', 'match', 'exact')
+                                    )}
+                                />
                                 <label className="custom-control-label" htmlFor="surnameRadioOpt3">Exact</label>
                             </div>
                         </div>
-                        <input className="form-control form-control-sm" type="text" placeholder="Prénom" name="inputSurname"/>
+                        <input className="form-control form-control-sm" type="text" placeholder="Prénom" name="inputSurname"
+                            onChange={(e) => (
+                                this.handleOptionChanges('given', 'value',  e.target.value)
+                            )}
+                        />
                     </div>
                 }/>
 
@@ -97,17 +119,29 @@ class SearchMenu extends Component {
                     <div>
                         <div className="d-flex justify-content-center" style={{marginBottom: '0.3rem'}}>
                             <div className="custom-control custom-radio custom-control-inline">
-                                <input type="radio" className="custom-control-input" id="genderRadioOpt1" name="gender" defaultChecked/>
+                                <input type="radio" className="custom-control-input" id="genderRadioOpt1" name="gender" 
+                                    onChange={() => (
+                                        this.handleOptionChanges('gender', 'value', '')
+                                    )}
+                                defaultChecked />
                                 <label className="custom-control-label" htmlFor="genderRadioOpt1">Autre</label>
                             </div>
 
                             <div className="custom-control custom-radio custom-control-inline">
-                                <input type="radio" className="custom-control-input" id="genderRadioOpt2" name="gender" />
+                                <input type="radio" className="custom-control-input" id="genderRadioOpt2" name="gender" 
+                                    onChange={() => (
+                                        this.handleOptionChanges('gender', 'value', 'male')
+                                    )}
+                                />
                                 <label className="custom-control-label" htmlFor="genderRadioOpt2">Homme</label>
                             </div>
 
                             <div className="custom-control custom-radio custom-control-inline">
-                                <input type="radio" className="custom-control-input" id="genderRadioOpt3" name="gender" />
+                                <input type="radio" className="custom-control-input" id="genderRadioOpt3" name="gender" 
+                                    onChange={() => (
+                                        this.handleOptionChanges('gender', 'value', 'female')
+                                    )}
+                                />
                                 <label className="custom-control-label" htmlFor="genderRadioOpt3">Femme</label>
                             </div>
                         </div>
@@ -120,13 +154,21 @@ class SearchMenu extends Component {
                             <div className="col">
                                 <label htmlFor="dateMin" style={{marginBottom:'0.1rem'}}>Date minimum</label>
                                 <input type="date" id="dateMin" className="form-control form-control-sm" name="dateMin"
-                                    defaultValue="1930-01-01" />
+                                    defaultValue="1930-01-01" 
+                                    onChange={(e) => (
+                                        this.handleOptionChanges('birthdate', 'min', e.target.value)
+                                    )}    
+                                />
                             </div>
 
                             <div className="col">
                                 <label htmlFor="dateMax" style={{marginTop:'0.6rem', marginBottom:'0.1rem'}}>Date maximum</label>
                                 <input type="date" id="dateMax" className="form-control form-control-sm" name="dateMax"
-                                    defaultValue="2030-01-01" />
+                                    defaultValue="2030-01-01" 
+                                    onChange={(e) => (
+                                        this.handleOptionChanges('birthdate', 'max', e.target.value)
+                                    )}  
+                                />
                             </div>
                         </div>
                     </div>
@@ -136,21 +178,37 @@ class SearchMenu extends Component {
                     <div>
                         <div className="d-flex justify-content-center" style={{marginBottom: '0.3rem'}}>
                             <div className="custom-control custom-radio custom-control-inline">
-                                <input type="radio" className="custom-control-input" id="cityRadioOpt1" name="cityMatchMethod" defaultChecked/>
+                                <input type="radio" className="custom-control-input" id="cityRadioOpt1" name="cityMatchMethod" 
+                                    onChange={() => (
+                                        this.handleOptionChanges('address-city', 'match', '')
+                                    )}
+                                defaultChecked />
                                 <label className="custom-control-label" htmlFor="cityRadioOpt1">Défaut</label>
                             </div>
 
                             <div className="custom-control custom-radio custom-control-inline">
-                                <input type="radio" className="custom-control-input" id="cityRadioOpt2" name="cityMatchMethod" />
+                                <input type="radio" className="custom-control-input" id="cityRadioOpt2" name="cityMatchMethod" 
+                                    onChange={() => (
+                                        this.handleOptionChanges('address-city', 'match', 'contains')
+                                    )}
+                                />
                                 <label className="custom-control-label" htmlFor="cityRadioOpt2">Contient</label>
                             </div>
 
                             <div className="custom-control custom-radio custom-control-inline">
-                                <input type="radio" className="custom-control-input" id="cityRadioOpt3" name="cityMatchMethod" />
+                                <input type="radio" className="custom-control-input" id="cityRadioOpt3" name="cityMatchMethod" 
+                                    onChange={() => (
+                                        this.handleOptionChanges('address-city', 'match', 'exact')
+                                    )}
+                                />
                                 <label className="custom-control-label" htmlFor="cityRadioOpt3">Exact</label>
                             </div>
                         </div>
-                        <input className="form-control form-control-sm" type="text" placeholder="Ville" name="inputCity"/>
+                        <input className="form-control form-control-sm" type="text" placeholder="Ville" name="inputCity"
+                            onChange={(e) => (
+                                this.handleOptionChanges('address-city', 'value', e.target.value)
+                            )}
+                        />
                     </div>
                 }/>
 
@@ -158,25 +216,46 @@ class SearchMenu extends Component {
                     <div>
                         <div className="d-flex justify-content-center" style={{marginBottom: '0.3rem'}}>
                             <div className="custom-control custom-radio custom-control-inline">
-                                <input type="radio" className="custom-control-input" id="countryRadioOpt1" name="countryMatchMethod" defaultChecked/>
+                                <input type="radio" className="custom-control-input" id="countryRadioOpt1" name="countryMatchMethod" 
+                                    onChange={() => (
+                                        this.handleOptionChanges('address-country', 'match', '')
+                                    )}
+                                defaultChecked />
                                 <label className="custom-control-label" htmlFor="countryRadioOpt1">Défaut</label>
                             </div>
 
                             <div className="custom-control custom-radio custom-control-inline">
-                                <input type="radio" className="custom-control-input" id="countryRadioOpt2" name="countryMatchMethod" />
+                                <input type="radio" className="custom-control-input" id="countryRadioOpt2" name="countryMatchMethod" 
+                                    onChange={() => (
+                                        this.handleOptionChanges('address-country', 'match', 'contains')
+                                    )}
+                                />
                                 <label className="custom-control-label" htmlFor="countryRadioOpt2">Contient</label>
                             </div>
 
                             <div className="custom-control custom-radio custom-control-inline">
-                                <input type="radio" className="custom-control-input" id="countryRadioOpt3" name="countryMatchMethod" />
+                                <input type="radio" className="custom-control-input" id="countryRadioOpt3" name="countryMatchMethod" 
+                                    onChange={() => (
+                                        this.handleOptionChanges('address-country', 'match', 'exact')
+                                    )}
+                                />
                                 <label className="custom-control-label" htmlFor="countryRadioOpt3">Exact</label>
                             </div>
                         </div>
-                        <input className="form-control form-control-sm" type="text" placeholder="Pays" name="inputCountry"/>
+                        <input className="form-control form-control-sm" type="text" placeholder="Pays" name="inputCountry"
+                            onChange={(e) => (
+                                this.handleOptionChanges('address-country', 'value', e.target.value)
+                            )}
+                        />
                     </div>
                 }/>
 
-                <MDBBtn color="info" size="sm" style={{width:'100%', margin:'0', marginTop: '0.6rem'}}>Rechercher</MDBBtn>
+                <MDBBtn color="info" size="sm" style={{width:'100%', margin:'0', marginTop: '0.6rem'}} 
+                    onClick={() => (
+                        this.handleSubmit()
+                    )}>
+                    Rechercher
+                </MDBBtn>
             </div>
         );
     }

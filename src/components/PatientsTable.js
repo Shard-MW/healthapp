@@ -52,15 +52,12 @@ class PatientsTable extends React.Component {
         switch (gender) {
             case "male":
                 return "Homme";
-                break;
 
             case "female":
                 return "Femme";
-                break;
         
             default:
                 return gender;
-                break;
         }
     }   
 
@@ -89,7 +86,7 @@ class PatientsTable extends React.Component {
                 });
 
             // If delete is successful
-            if(status == 204){ // According to doc https://fhir-drills.github.io/simple-patient.html#Step5 ok response is 204
+            if(status === 204){ // According to doc https://fhir-drills.github.io/simple-patient.html#Step5 ok response is 204
                 // Reindex ui display
                 for(let i = index; i < clength; ++i)
                     this.state.data.rows[i].countId = <span style={{marginLeft: '1rem'}}>{this.state.data.rows[i].countId.props.children-1}</span>;
@@ -136,7 +133,7 @@ class PatientsTable extends React.Component {
             })
             .then(res => {
                 let rows = [];
-                res.data.entry.map((row, index) => {
+                res.data.entry.forEach((row, index) => {
                         rows.push({
                             resourceId: row.resource.id,
                             countId:

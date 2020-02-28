@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { MDBRow, MDBInput } from "mdbreact";
 
 class SearchOpt extends Component {
     static defaultProps = {
@@ -24,7 +23,6 @@ class SearchOpt extends Component {
 
     handleChange(event){
         this.props.onChange(this.props.id, !this.state.show ? {} : undefined);
-        console.log(this.props.id + (this.state.show ? " unchecked" : " checked"));
     }
 
     render() {

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { MDBBtn, MDBCol, MDBContainer, MDBRow } from "mdbreact";
+import { MDBCol, MDBContainer, MDBRow } from "mdbreact";
 import "./css/index.css";
 import ContentView from "./components/ContentView";
 import SearchMenu from "./components/SearchMenu";

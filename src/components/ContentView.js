@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import axios from 'axios';
 import PatientsTable from "./PatientsTable";
 import Notification from "./Notification";
-import {MDBBtn, MDBBtnGroup, MDBContainer, MDBIcon, MDBNotification} from "mdbreact";
+import {MDBContainer} from "mdbreact";
 
 export default class ContentView extends Component {
     constructor(props) {
