@@ -13,6 +13,7 @@ class SearchOpt extends Component {
         };
 
         this.handleClick = this.handleClick.bind(this)
+        this.handleChange = this.handleChange.bind(this)
     }
 
     handleClick() {
@@ -21,14 +22,18 @@ class SearchOpt extends Component {
         }));
     }
 
+    handleChange(event){
+        this.props.onChange(this.props.id, !this.state.show ? {} : undefined);
+        console.log(this.props.id + (this.state.show ? " unchecked" : " checked"));
+    }
+
     render() {
         return (
             <div>
                 <div className="custom-control custom-checkbox"  style={this.state.show ? {...styles.headerOpt, ...styles.headerOptChecked} : {...styles.headerOpt}}>
-                    <input type="checkbox" className="custom-control-input" id={"enableOpt"+this.props.id} onClick={this.handleClick}/>
-                    <label className="custom-control-label" htmlFor={"enableOpt"+this.props.id} style={{paddingLeft: '0.5rem'}}>{this.props.title}</label>
+                    <input type="checkbox" className="custom-control-input" id={"enableOpt"+this.props.id} onClick={this.handleClick} onChange={this.handleChange}/>
+                    <label className="custom-control-label" htmlFor={"enableOpt"+this.props.id} style={{paddingLeft: '0.5rem', userSelect: 'none'}}>{this.props.title}</label>
                 </div>                
-                {/*<hr style={styles.hr}/>*/}
                 {
                     this.state.show === true 
                     &&

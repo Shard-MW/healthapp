@@ -3,33 +3,75 @@ import {MDBBtn} from "mdbreact";
 import SearchOpt from "./SearchOpt";
 
 class SearchMenu extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
+    
+        this.handleFieldChange = this.handleFieldChange.bind(this);
+        this.handleOptionChanges = this.handleOptionChanges.bind(this);
+    }
+      
+    handleFieldChange(fieldId, value) {
+        this.setState({ [fieldId]: value });
+        
+        console.log(this.state)
+    }
+
+    handleOptionChanges(fieldId, optName, value) {        
+        if (this.state[fieldId]){
+            let newArr = this.state[fieldId];
+            newArr[optName] = value;
+            this.setState({
+                [fieldId]: newArr,
+            });
+        }
+            
+        console.log(this.state)
+    }
+
     render() {
         return (
             <div>
                 <h4 style={styles.title}>Affinez votre recherche</h4>
-                <SearchOpt id="1" title="Nom" content={
+                <SearchOpt id="family" title="Nom" onChange={this.handleFieldChange} content={
                     <div>
                         <div className="d-flex justify-content-center" style={{marginBottom: '0.3rem'}}>
                             <div className="custom-control custom-radio custom-control-inline">
-                                <input type="radio" className="custom-control-input" id="lastnameRadioOpt1" name="lastnameMatchMethod" defaultChecked/>
+                                <input type="radio" className="custom-control-input" id="lastnameRadioOpt1" name="lastnameMatchMethod" 
+                                    onChange={() => (
+                                        this.handleOptionChanges('family', 'match', '')
+                                    )} 
+                                defaultChecked />
                                 <label className="custom-control-label" htmlFor="lastnameRadioOpt1">Défaut</label>
                             </div>
 
                             <div className="custom-control custom-radio custom-control-inline">
-                                <input type="radio" className="custom-control-input" id="lastnameRadioOpt2" name="lastnameMatchMethod" />
+                                <input type="radio" className="custom-control-input" id="lastnameRadioOpt2" name="lastnameMatchMethod" 
+                                    onChange={() => (
+                                        this.handleOptionChanges('family', 'match', 'contains')
+                                    )}
+                                />
                                 <label className="custom-control-label" htmlFor="lastnameRadioOpt2">Contient</label>
                             </div>
 
                             <div className="custom-control custom-radio custom-control-inline">
-                                <input type="radio" className="custom-control-input" id="lastnameRadioOpt3" name="lastnameMatchMethod" />
+                                <input type="radio" className="custom-control-input" id="lastnameRadioOpt3" name="lastnameMatchMethod" 
+                                    onChange={() => (
+                                        this.handleOptionChanges('family', 'match', 'exact')
+                                    )}
+                                />
                                 <label className="custom-control-label" htmlFor="lastnameRadioOpt3">Exact</label>
                             </div>
                         </div>
-                        <input className="form-control form-control-sm" type="text" placeholder="Nom" name="inputLastname"/>
+                        <input className="form-control form-control-sm" type="text" placeholder="Nom" name="inputLastname"
+                            onChange={(e) => (
+                                this.handleOptionChanges('family', 'name', e.target.value)
+                            )}
+                        />
                     </div>
                 }/>
 
-                <SearchOpt id="2" title="Prénom" content={
+                <SearchOpt id="given" title="Prénom" onChange={this.handleFieldChange} content={
                     <div>
                         <div className="d-flex justify-content-center" style={{marginBottom: '0.3rem'}}>
                             <div className="custom-control custom-radio custom-control-inline">
@@ -51,7 +93,7 @@ class SearchMenu extends Component {
                     </div>
                 }/>
 
-                <SearchOpt id="3" title="Sexe" content={
+                <SearchOpt id="gender" title="Sexe" onChange={this.handleFieldChange} content={
                     <div>
                         <div className="d-flex justify-content-center" style={{marginBottom: '0.3rem'}}>
                             <div className="custom-control custom-radio custom-control-inline">
@@ -72,25 +114,25 @@ class SearchMenu extends Component {
                     </div>
                 }/>
 
-                <SearchOpt id="4" title="Date de naissance" content={
+                <SearchOpt id="birthdate" title="Date de naissance" onChange={this.handleFieldChange} content={
                     <div>                        
-                        <div class="row d-flex justify-content-center align-items-center">
-                            <div class="col">
-                                <label for="dateMin" style={{marginBottom:'0.1rem'}}>Date minimum</label>
+                        <div className="row d-flex justify-content-center align-items-center">
+                            <div className="col">
+                                <label htmlFor="dateMin" style={{marginBottom:'0.1rem'}}>Date minimum</label>
                                 <input type="date" id="dateMin" className="form-control form-control-sm" name="dateMin"
-                                    value="1930-01-01" />
+                                    defaultValue="1930-01-01" />
                             </div>
 
-                            <div class="col">
-                                <label for="dateMax" style={{marginTop:'0.6rem', marginBottom:'0.1rem'}}>Date maximum</label>
+                            <div className="col">
+                                <label htmlFor="dateMax" style={{marginTop:'0.6rem', marginBottom:'0.1rem'}}>Date maximum</label>
                                 <input type="date" id="dateMax" className="form-control form-control-sm" name="dateMax"
-                                    value="2030-01-01" />
+                                    defaultValue="2030-01-01" />
                             </div>
                         </div>
                     </div>
                 }/>
 
-                <SearchOpt id="5" title="Ville" content={
+                <SearchOpt id="address-city" title="Ville" onChange={this.handleFieldChange} content={
                     <div>
                         <div className="d-flex justify-content-center" style={{marginBottom: '0.3rem'}}>
                             <div className="custom-control custom-radio custom-control-inline">
@@ -112,7 +154,7 @@ class SearchMenu extends Component {
                     </div>
                 }/>
 
-                <SearchOpt id="6" title="Pays" content={
+                <SearchOpt id="address-country" title="Pays" onChange={this.handleFieldChange} content={
                     <div>
                         <div className="d-flex justify-content-center" style={{marginBottom: '0.3rem'}}>
                             <div className="custom-control custom-radio custom-control-inline">
