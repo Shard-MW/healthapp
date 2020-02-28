@@ -39,7 +39,7 @@ export default class ContentView extends Component {
                     }
                 </MDBContainer>
                 <h4 style={styles.title}>Liste des patients</h4>
-                <PatientsTable addNotification={this.addNotification}/>
+                <PatientsTable addNotification={this.addNotification} params={this.props.params}/>
             </>
         )
     };

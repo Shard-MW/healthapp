@@ -5,16 +5,28 @@ import ContentView from "./components/ContentView";
 import SearchMenu from "./components/SearchMenu";
 
 class App extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
+    
+        this.handleSearch = this.handleSearch.bind(this);
+    }
+
+    handleSearch(searchParams){
+        this.setState({ params: searchParams });
+        console.log(this.state)
+    }
+
     render() {
         return (
             <MDBContainer fluid style={styles.container}>
                 <MDBRow>
                     <MDBCol style={styles.leftMenu} md="3">
-                        <SearchMenu />
+                        <SearchMenu handleSearch={this.handleSearch}/>
                     </MDBCol>
 
                     <MDBCol style={styles.content} md="9">
-                        <ContentView />
+                        <ContentView params={this.state.params}/>
                     </MDBCol>
                 </MDBRow>
             </MDBContainer>

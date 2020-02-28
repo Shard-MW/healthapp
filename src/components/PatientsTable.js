@@ -124,8 +124,8 @@ class PatientsTable extends React.Component {
         }
     }
 
-    getPatients(searchParams){
-        axios.get(`https://stu3.test.pyrohealth.net/fhir/Patient`,
+    async getPatients(searchParams){
+        await axios.get(`https://stu3.test.pyrohealth.net/fhir/Patient`,
             {
                 params: {
                     ...searchParams
@@ -133,7 +133,7 @@ class PatientsTable extends React.Component {
             })
             .then(res => {
                 let rows = [];
-                res.data.entry.forEach((row, index) => {
+                res.data.entry && res.data.entry.forEach((row, index) => {
                         rows.push({
                             resourceId: row.resource.id,
                             countId:
@@ -166,6 +166,12 @@ class PatientsTable extends React.Component {
     componentDidMount() {
         // Init table (200 seems to be the server limit)
         this.getPatients({ _count: 200 });
+    };
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.params !== this.props.params) {            
+            this.getPatients(this.props.params);
+        }          
     };
 
     render() {

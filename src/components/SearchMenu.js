@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import {MDBBtn} from "mdbreact";
 import SearchOpt from "./SearchOpt";
 
+const BIRTHDATE_DEFAULT_MIN = '1930-01-01', BIRTHDATE_DEFAULT_MAX = '2030-01-01';
+
 class SearchMenu extends Component {
     constructor(props) {
         super(props);
@@ -14,25 +16,71 @@ class SearchMenu extends Component {
       
     handleFieldChange(fieldId, value) {
         this.setState({ [fieldId]: value });
-        
-        //console.log(this.state)
     }
 
     handleOptionChanges(fieldId, optName, value) {        
         if (this.state[fieldId]){
             let newArr = this.state[fieldId];
             newArr[optName] = value;
-            
+
             this.setState({
                 [fieldId]: newArr,
             });
         }
-            
-        //console.log(this.state)
     }
 
     handleSubmit(){
-        console.log(this.state);
+        // Better to use switch
+        let searchParams = {
+            _count: 200,
+        };
+
+        if(this.state.family){
+            searchParams[this.state.family.match === 'contains' 
+                            ? 'family:contains'
+                            : this.state.family.match === 'exact'
+                                ? 'family:exact'
+                                : 'family'
+                        ] = this.state.family.value ? this.state.family.value : '';
+        }
+
+        if(this.state.given){
+            searchParams[this.state.given.match === 'contains' 
+                            ? 'given:contains'
+                            : this.state.given.match === 'exact'
+                                ? 'given:exact'
+                                : 'given'
+                        ] = this.state.given.value ? this.state.given.value : '';
+        }
+
+        if(this.state.gender){
+            searchParams['gender'] = this.state.gender.value ? this.state.gender.value : '';
+        }
+
+        if(this.state.birthdate){
+            searchParams['birthdate=>'] = this.state.birthdate.min ? this.state.birthdate.min : BIRTHDATE_DEFAULT_MIN;
+            searchParams['birthdate=<'] = this.state.birthdate.max ? this.state.birthdate.max : BIRTHDATE_DEFAULT_MAX;
+        }
+
+        if(this.state['address-city']){
+            searchParams[this.state['address-city'].match === 'contains' 
+                            ? 'address-city:contains'
+                            : this.state['address-city'].match === 'exact'
+                                ? 'address-city:exact'
+                                : 'address-city'
+                        ] = this.state['address-city'].value ? this.state['address-city'].value : '';
+        }
+
+        if(this.state['address-country']){
+            searchParams[this.state['address-country'].match === 'contains' 
+                            ? 'address-country:contains'
+                            : this.state['address-country'].match === 'exact'
+                                ? 'address-country:exact'
+                                : 'address-country'
+                        ] = this.state['address-country'].value ? this.state['address-country'].value : '';
+        }
+
+        this.props.handleSearch(searchParams);
     }
 
     render() {
@@ -154,7 +202,7 @@ class SearchMenu extends Component {
                             <div className="col">
                                 <label htmlFor="dateMin" style={{marginBottom:'0.1rem'}}>Date minimum</label>
                                 <input type="date" id="dateMin" className="form-control form-control-sm" name="dateMin"
-                                    defaultValue="1930-01-01" 
+                                    defaultValue={BIRTHDATE_DEFAULT_MIN}
                                     onChange={(e) => (
                                         this.handleOptionChanges('birthdate', 'min', e.target.value)
                                     )}    
@@ -164,7 +212,7 @@ class SearchMenu extends Component {
                             <div className="col">
                                 <label htmlFor="dateMax" style={{marginTop:'0.6rem', marginBottom:'0.1rem'}}>Date maximum</label>
                                 <input type="date" id="dateMax" className="form-control form-control-sm" name="dateMax"
-                                    defaultValue="2030-01-01" 
+                                    defaultValue={BIRTHDATE_DEFAULT_MAX} 
                                     onChange={(e) => (
                                         this.handleOptionChanges('birthdate', 'max', e.target.value)
                                     )}  
