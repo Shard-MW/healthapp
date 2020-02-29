@@ -12,9 +12,10 @@ class App extends Component {
         this.handleSearch = this.handleSearch.bind(this);
     }
 
+    // Handle searchParams recieved from child 
+    // and pass them to ContentView to request API & rerender results
     handleSearch(searchParams){
         this.setState({ params: searchParams });
-        console.log(this.state)
     }
 
     render() {

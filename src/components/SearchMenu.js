@@ -13,11 +13,13 @@ class SearchMenu extends Component {
         this.handleOptionChanges = this.handleOptionChanges.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-      
+    
+    // Enable/Disasble a field for search
     handleFieldChange(fieldId, value) {
         this.setState({ [fieldId]: value });
     }
 
+    // Build the search data for each fields
     handleOptionChanges(fieldId, optName, value) {        
         if (this.state[fieldId]){
             let newArr = this.state[fieldId];
@@ -29,12 +31,15 @@ class SearchMenu extends Component {
         }
     }
 
+    // Execute the search and re-render patient table (results)
     handleSubmit(){
-        // Better to use switch
+        // Better to use switch there
         let searchParams = {
             _count: 200,
         };
 
+        // Check if "family" field is enabled, determine the match method and the value requested
+        // Same routine for all fields
         if(this.state.family){
             searchParams[this.state.family.match === 'contains' 
                             ? 'family:contains'
@@ -80,6 +85,7 @@ class SearchMenu extends Component {
                         ] = this.state['address-country'].value ? this.state['address-country'].value : '';
         }
 
+        // Pass searchParams to parent component
         this.props.handleSearch(searchParams);
     }
 

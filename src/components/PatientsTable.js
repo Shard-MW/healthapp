@@ -48,6 +48,7 @@ class PatientsTable extends React.Component {
         this.deletePatient = this.deletePatient.bind(this);
     }
 
+    // Used to formalize gender output
     formalizeGender(gender) {
         switch (gender) {
             case "male":
@@ -61,6 +62,7 @@ class PatientsTable extends React.Component {
         }
     }   
 
+    // Deletes a patient form FHIR Api by specifiend its ID
     async deletePatient(e, id, addNotification) {
         e.preventDefault();
 
@@ -124,6 +126,7 @@ class PatientsTable extends React.Component {
         }
     }
 
+    // Retrieve patient list from FHIR Api and update component state (for rendering)
     async getPatients(searchParams){
         await axios.get(`https://stu3.test.pyrohealth.net/fhir/Patient`,
             {
@@ -135,17 +138,30 @@ class PatientsTable extends React.Component {
                 let rows = [];
                 res.data.entry && res.data.entry.forEach((row, index) => {
                         rows.push({
+                            // Patient ID
                             resourceId: row.resource.id,
-                            countId:
+
+                            // Num row for the dynamic table
+                            countId: 
                                 <span style={{marginLeft: '1rem'}}>{index+1}</span>,
+
+                            // Patient Lastname
                             nom: row.resource.name
                                  ? (row.resource.name[0].family).toUpperCase()
                                  : "",
+
+                            // Patient Firstname (need to be recoded because Patient can have multiple names)
                             prenom: row.resource.name
                                     ? stringOp.capitalize(row.resource.name[0].given[0])
                                     : "",
+
+                            // Patient Birthdate
                             birth : row.resource.birthDate,
+
+                            // Patient formalized gender
                             gender: this.formalizeGender(row.resource.gender),
+
+                            // Actions edit (not done yet) + delete
                             button:
                                 <MDBBtnGroup style={{width: '100%'}}>
                                     <MDBBtn style={{marginTop: 0, marginBottom: 0, marginLeft: 0}} color="primary" onClick={(e) => console.log("Modify clicked for " + row.resource.id)} disabled>
@@ -163,11 +179,13 @@ class PatientsTable extends React.Component {
             })
     };
 
+    // Initial state for patient table
     componentDidMount() {
         // Init table (200 seems to be the server limit)
         this.getPatients({ _count: 200 });
     };
 
+    // State for patient table when search form is validated
     componentDidUpdate(prevProps) {
         if (prevProps.params !== this.props.params) {            
             this.getPatients(this.props.params);

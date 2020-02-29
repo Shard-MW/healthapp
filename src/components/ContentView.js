@@ -8,7 +8,7 @@ export default class ContentView extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            notifications : [],
+            notifications : [], // Stores notifications to show
         };
 
         this.addNotification = this.addNotification.bind(this);
@@ -29,6 +29,7 @@ export default class ContentView extends Component {
             <>
                 <MDBContainer style={styles.notifContainer} id="notifContainer">
                     {
+                        // Map existing notifications to display them
                         this.state.notifications.map((notification) =>
                             <Notification key={notification.id}
                                           icon={notification.icon}

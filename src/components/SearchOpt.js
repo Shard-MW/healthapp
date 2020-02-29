@@ -15,12 +15,14 @@ class SearchOpt extends Component {
         this.handleChange = this.handleChange.bind(this)
     }
 
+    // Handles the rendering of wrapped component
     handleClick() {
         this.setState((state, props) =>({
             show: this.state.show ? false : true,
         }));
     }
 
+    // Pass to parent component if this option is enabled for research or not
     handleChange(event){
         this.props.onChange(this.props.id, !this.state.show ? {} : undefined);
     }

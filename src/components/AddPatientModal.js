@@ -20,6 +20,7 @@ class AddPatientModal extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }    
       
+    // Toggles modal visibility
     toggle = () => {
         this.setState({
             modal: !this.state.modal
@@ -53,6 +54,8 @@ class AddPatientModal extends Component {
             }
         `;
 
+        // Build JSON array from patient template
+        // Better to use loop here for future improvements {{FIELD}} <-> this.state['field']
         patientTemplate = patientTemplate.replace('{{LASTNAME}}', this.state.lastname);
         patientTemplate = patientTemplate.replace('{{FIRSTNAME}}', this.state.firstname);
         patientTemplate = patientTemplate.replace('{{GENDER}}', this.state.gender);
@@ -74,7 +77,7 @@ class AddPatientModal extends Component {
         });
 
         
-        // If add successfull
+        // If add is successfull
         if(status === 201) {
             // Send success notification to client
             this.props.addNotification({
@@ -87,7 +90,7 @@ class AddPatientModal extends Component {
         }else{
             // Send error notification to client
             this.props.addNotification({
-                id: 0,
+                id: newId,
                 icon: "plus",
                 iconClassName: "red-text",
                 title: "Ajout de patient",
