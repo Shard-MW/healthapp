@@ -148,7 +148,7 @@ class PatientsTable extends React.Component {
                             gender: this.formalizeGender(row.resource.gender),
                             button:
                                 <MDBBtnGroup style={{width: '100%'}}>
-                                    <MDBBtn style={{marginTop: 0, marginBottom: 0, marginLeft: 0}} color="primary" onClick={(e) => console.log("Modify clicked for " + row.resource.id)}>
+                                    <MDBBtn style={{marginTop: 0, marginBottom: 0, marginLeft: 0}} color="primary" onClick={(e) => console.log("Modify clicked for " + row.resource.id)} disabled>
                                         <MDBIcon style={styles.icon} icon="user-edit"/>
                                     </MDBBtn>
                                     <MDBBtn style={{marginTop: 0, marginBottom: 0, marginRight: 0}} color="danger" onClick={(e) => this.deletePatient(e, row.resource.id, this.props.addNotification)}>
