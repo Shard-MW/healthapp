@@ -9,7 +9,7 @@ class AddPatientModal extends Component {
             modal: false,
             lastname: '',
             firstname: '',
-            gender: '',
+            gender: 'male',
             birthdate: '1930-01-01',
             city: '',
             country: '',
@@ -143,6 +143,7 @@ class AddPatientModal extends Component {
                                         Sexe
                                     </label>
                                     <div style={{display:'block'}} className='d-flex justify-content-center'>
+                                        {/*
                                         <div className="custom-control custom-radio custom-control-inline">
                                             <input type="radio" className="custom-control-input" id="ptGender1" name="ptGender" value=""
                                                 onChange={(e) =>
@@ -151,13 +152,14 @@ class AddPatientModal extends Component {
                                             defaultChecked />
                                             <label className="custom-control-label" htmlFor="ptGender1">Autre</label>
                                         </div>
+                                        */}
 
                                         <div className="custom-control custom-radio custom-control-inline">
                                             <input type="radio" className="custom-control-input" id="ptGender2" name="ptGender"  value="female"
                                                 onChange={(e) =>
                                                     this.handleFieldChange("gender", e.target.value)
                                                 }
-                                            />
+                                            defaultChecked />
                                             <label className="custom-control-label" htmlFor="ptGender2">Homme</label>
                                         </div>
 

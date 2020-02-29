@@ -172,6 +172,7 @@ class SearchMenu extends Component {
                 <SearchOpt id="gender" title="Sexe" onChange={this.handleFieldChange} content={
                     <div>
                         <div className="d-flex justify-content-center" style={{marginBottom: '0.3rem'}}>
+                            {/*
                             <div className="custom-control custom-radio custom-control-inline">
                                 <input type="radio" className="custom-control-input" id="genderRadioOpt1" name="gender" 
                                     onChange={() => (
@@ -180,13 +181,14 @@ class SearchMenu extends Component {
                                 defaultChecked />
                                 <label className="custom-control-label" htmlFor="genderRadioOpt1">Autre</label>
                             </div>
+                            */}
 
                             <div className="custom-control custom-radio custom-control-inline">
                                 <input type="radio" className="custom-control-input" id="genderRadioOpt2" name="gender" 
                                     onChange={() => (
                                         this.handleOptionChanges('gender', 'value', 'male')
                                     )}
-                                />
+                                defaultChecked />
                                 <label className="custom-control-label" htmlFor="genderRadioOpt2">Homme</label>
                             </div>
 
