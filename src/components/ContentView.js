@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PatientsTable from "./PatientsTable";
 import Notification from "./Notification";
 import {MDBContainer} from "mdbreact";
+import AddPatientModal from "./AddPatientModal";
 
 export default class ContentView extends Component {
     constructor(props) {
@@ -38,7 +39,10 @@ export default class ContentView extends Component {
                         )
                     }
                 </MDBContainer>
-                <h4 style={styles.title}>Liste des patients</h4>
+                <div>
+                    <h4 style={styles.title}>Liste des patients</h4>
+                    <AddPatientModal addNotification={this.addNotification}/>
+                </div>
                 <PatientsTable addNotification={this.addNotification} params={this.props.params}/>
             </>
         )
@@ -49,6 +53,8 @@ const styles = {
     title : {
         marginBottom: '4vh',
         fontWeight: 'bolder',
+        display: 'inline-block',
+        marginRight: '1rem',
     },
     notifContainer: {
         position: "fixed",
